@@ -3,9 +3,9 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        zero_index = 0
+        next_non_zero = 0
 
-        for nums_index in range(len(nums)):
-            if nums[nums_index] != 0:
-                nums[zero_index], nums[nums_index] = nums[nums_index], nums[zero_index] # swap
-                zero_index += 1
+        for index in range(len(nums)):
+            if nums[index] != 0:
+                nums[index], nums[next_non_zero] = nums[next_non_zero], nums[index]
+                next_non_zero +=1
