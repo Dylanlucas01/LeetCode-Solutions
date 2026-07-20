@@ -3,7 +3,6 @@ class DataEntry:
         self.minute = minute
         self.value = value
 
-
 class TimeMap:
     def __init__(self):
         self.data_set: dict[str, list[DataEntry]] = {}
@@ -14,8 +13,7 @@ class TimeMap:
         if key not in self.data_set:
             self.data_set[key] = []
 
-        data_entry = DataEntry(minute,value)
-        self.data_set[key].append(data_entry)
+        self.data_set[key].append(DataEntry(minute,value))
         
     def get(self, key: str, timestamp: int) -> str:
         target_minute = timestamp
@@ -27,19 +25,19 @@ class TimeMap:
 
         left = 0
         right = len(data_entry_list)-1
-        data_entry_value = ""
+        latest_value = ""
 
         while left <= right:
             middle = (left+right)//2
             middle_data_entry = data_entry_list[middle]
 
             if middle_data_entry.minute <= target_minute:
-                data_entry_value = middle_data_entry.value
+                latest_value = middle_data_entry.value
                 left = middle + 1
             
             else:
                 right = middle -1
-        return data_entry_value
+        return latest_value
 
         """
         {
