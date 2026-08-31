@@ -5,8 +5,11 @@
 #         self.next = next
 class Solution:
     def nodesBetweenCriticalPoints(self, head: Optional[ListNode]) -> List[int]:
-        minDistance, maxDistance = -1, -1
-        critical_nodes = []
+        minDistance = float("inf")
+        maxDistance = -1
+
+        first_critical = -1
+        prev_critical = -1
 
         curr = head
         node = 1
@@ -18,27 +21,25 @@ class Solution:
             curr_val = curr.next.val
             next_val = curr.next.next.val
 
+            # Check if curr.next is a critical point
             if (curr_val < prev_val and curr_val < next_val) or (curr_val > prev_val and curr_val > next_val):
 
-                if len(critical_nodes) == 0:
-                    critical_nodes.append(node)
-
+                if first_critical == -1:
+                    # First critical point
+                    first_critical = node
                 else:
-                    if len(critical_nodes) == 1:
-                        minDistance = node - critical_nodes[0]
-                        maxDistance = minDistance
-                        critical_nodes.append(node)
+                    # Distance from previous critical point
+                    distance = node - prev_critical
+                    minDistance = min(minDistance, distance)
 
-                    else:
-                        minDistance = min(
-                            node - critical_nodes[1],
-                            minDistance
-                        )
+                    # Distance from first to current
+                    maxDistance = node - first_critical
 
-                        critical_nodes[1] = node
-
-                        maxDistance = critical_nodes[1] - critical_nodes[0]
+                prev_critical = node
 
             curr = curr.next
+
+        if maxDistance == -1:
+            return [-1, -1]
 
         return [minDistance, maxDistance]
