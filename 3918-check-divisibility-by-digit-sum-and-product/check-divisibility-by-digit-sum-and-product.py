@@ -1,11 +1,12 @@
 class Solution:
     def checkDivisibility(self, n: int) -> bool:
-        m = list(str(n))
+        m = n
         digit_sum = 0
         digit_product = 1
 
-        for digit in m:
-            digit = int(digit)
+        while m > 0:
+            digit = m % 10
+            m = m // 10
             digit_sum += digit
             digit_product *= digit
 
