@@ -1,8 +1,8 @@
 class Solution:
     def checkDivisibility(self, n: int) -> bool:
-        m = n
         digit_sum = 0
         digit_product = 1
+        m = n
 
         while m > 0:
             digit_sum += m % 10
