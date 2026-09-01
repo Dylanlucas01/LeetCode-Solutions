@@ -10,7 +10,5 @@ class Solution:
             digit_sum += digit
             digit_product *= digit
 
-        z = digit_sum + digit_product
-
-        return n % z == 0
+        return n % (digit_sum + digit_product) == 0
         
